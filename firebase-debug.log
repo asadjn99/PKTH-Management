@@ -1,0 +1,28 @@
+[debug] [2025-05-09T21:57:34.960Z] ----------------------------------------------------------------------
+[debug] [2025-05-09T21:57:34.967Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Asad Ulah\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2025-05-09T21:57:34.968Z] CLI Version:   14.3.1
+[debug] [2025-05-09T21:57:34.968Z] Platform:      win32
+[debug] [2025-05-09T21:57:34.968Z] Node Version:  v23.6.0
+[debug] [2025-05-09T21:57:34.969Z] Time:          Sat May 10 2025 02:57:34 GMT+0500 (Pakistan Standard Time)
+[debug] [2025-05-09T21:57:34.969Z] ----------------------------------------------------------------------
+[debug] 
+[warn] !  JSON error trying to load C:\Users\Asad Ulah\Desktop\PKTH-Management\.firebaserc 
+[error] 
+[error] Error: No currently active project.
+To run this command, you need to specify a project. You have two options:
+- Run this command with --project <alias_or_project_id>.
+- Set an active project by running firebase use --add, then rerun this command.
+To list all the Firebase projects to which you have access, run firebase projects:list.
+To learn about active projects for the CLI, visit https://firebase.google.com/docs/cli#project_aliases
+
+
+[debug] [2025-05-09T21:57:36.456Z] Error: EBUSY: resource busy or locked, unlink 'C:\Users\Asad Ulah\Desktop\PKTH-Management\firebase-debug.log'
+    at Object.unlinkSync (node:fs:1954:11)
+    at process.<anonymous> (C:\Users\Asad Ulah\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js:76:16)
+    at process.emit (node:events:519:35)
+    at process.exit (node:internal/process/per_thread:180:15)
+    at Timeout._onTimeout (C:\Users\Asad Ulah\AppData\Roaming\npm\node_modules\firebase-tools\lib\errorOut.js:20:17)
+    at listOnTimeout (node:internal/timers:614:17)
+    at process.processTimers (node:internal/timers:549:7)
+[error] 
+[error] Error: An unexpected error has occurred.
