@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manager Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h2>Dashboard</h2>
+  <input id="room" placeholder="Room Name / Food Item"><br>
+  <input id="price" placeholder="Price"><br>
+  <button onclick="addData()">Add</button>
+
+  <div id="dataList"></div>
+
+  <script>
+    // Same firebaseConfig again
+    const firebaseConfig = { /* your config here */ };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(user => {
+      if (!user) window.location.href = "login.html";
+      else loadData(user.uid);
+    });
+
+    function addData() {
+      const room = document.getElementById('room').value;
+      const price = document.getElementById('price').value;
+      const userId = auth.currentUser.uid;
+      db.collection("rooms").add({
+        userId, room, price
+      }).then(() => {
+        alert("Added!");
+        loadData(userId);
+      });
+    }
+
+    function loadData(userId) {
+      document.getElementById("dataList").innerHTML = "";
+      db.collection("rooms").where("userId", "==", userId).get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          document.getElementById("dataList").innerHTML += `
+        <div>
+            <input id="room-${doc.id}" value="${data.room}">
+            <input id="price-${doc.id}" value="${data.price}">
+            <button onclick="updateData('${doc.id}')">Update</button>
+            <button onclick="deleteData('${doc.id}')">Delete</button>
+        </div>`;
+
+        });
+      });
+    }
+
+    function updateData(id) {
+        const room = document.getElementById(`room-${id}`).value;
+        const price = document.getElementById(`price-${id}`).value;
+        db.collection("rooms").doc(id).update({
+            room, price
+        }).then(() => {
+            alert("Updated!");
+            loadData(auth.currentUser.uid);
+        });
+        }
+
+
+    function deleteData(id) {
+      db.collection("rooms").doc(id).delete().then(() => {
+        alert("Deleted");
+        loadData(auth.currentUser.uid);
+      });
+    }
+  </script>
+</body>
+</html>
